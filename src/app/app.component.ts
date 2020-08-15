@@ -1,3 +1,5 @@
+import { UsuarioService } from '../providers/usuario.service';
+import { Usuario } from '../to/usuario';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gerenciador-processos-front-angular';
+
+  constructor(){
+
+  }
+
+  ngOnInit(): void {
+    
+  }
+  
 }
