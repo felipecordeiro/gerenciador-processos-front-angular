@@ -1,5 +1,5 @@
 import { Funcao } from '../enums/enum-funcao';
-export interface Usuario {
+export class Usuario {
 
     id: number
     login: string

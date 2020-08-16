@@ -1,7 +1,11 @@
+import { of } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
+import { Funcao } from './../../enums/enum-funcao';
 import { UsuarioService } from './../../providers/usuario.service';
 import { Usuario } from './../../to/usuario';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +15,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   form: FormGroup
-  usuarios: Usuario[] = [];
 
   constructor(private fb: FormBuilder,
-    public crudService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -24,19 +28,36 @@ export class LoginComponent implements OnInit {
   }
 
   verificaConta() {
-    this.crudService.getAll().subscribe((data: Usuario[]) => {
-      console.log(data);
-      this.usuarios = data;
-      if (this.usuarios.find(obj => obj.login == this.form.get('login').value &&
-        obj.password == this.form.get('password').value)) {
-        console.log(true)
-      }
-      else {
-        console.log(false)
-      }
+    let obs = of(null)
+    obs = obs.pipe(
+      concatMap(() => {
+        return this.verificaUsuarioValidoObservable()
+      })
+    )
+    obs.subscribe((usuario: Usuario) => {
+      this.login(usuario)
     }, error => {
+      this.form.reset()
       console.log(error)
     })
+  }
+
+  verificaUsuarioValidoObservable() {
+    return this.usuarioService.verificaUsuarioValido(this.form.get('login').value,
+      this.form.get('password').value)
+  }
+
+  private login(usuario: Usuario) {
+    if (usuario.funcao == Funcao.USUARIO_ADMINISTRADOR) {
+      this.router.navigate(['/administrador'])
+    }
+    else if (usuario.funcao == Funcao.USUARIO_TRIADOR) {
+      this.router.navigate(['/triador'])
+    }
+    else if (usuario.funcao == Funcao.USUARIO_FINALIZADOR) {
+      this.router.navigate(['/finalizador'])
+    }
+
   }
 
 

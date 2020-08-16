@@ -11,12 +11,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AdministradorComponent } from './administrador/administrador.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AdministradorComponent
   ],
   imports: [
     AppRoutingModule,
