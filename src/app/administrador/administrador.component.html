@@ -1,1 +1,71 @@
-<p>administrador works!</p>
+<div id="container">
+    <h2>Visão de administrador - Usuários</h2>
+
+    <div *ngIf="view == 'incluir' || view == 'atualizar'">
+        <button (click)="voltar()" mat-raised-button color="primary">Voltar</button>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field>
+                <mat-label>ID</mat-label>
+                <input matInput type="text" formControlName="id">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Login</mat-label>
+                <input matInput type="text" formControlName="login">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="nome">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Função</mat-label>
+                <mat-select formControlName="funcao">
+                    <mat-option value="USUARIO_ADMINISTRADOR">Administrador</mat-option>
+                    <mat-option value="USUARIO_TRIADOR">Triador</mat-option>
+                    <mat-option value="USUARIO_FINALIZADOR">Finalizador</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <button (click)="botaoSalvar()" [disabled]="form.invalid" mat-raised-button color="primary">
+                Salvar</button>
+        </form>
+    </div>
+
+    <div *ngIf="view == 'visualizar'">
+        <button mat-raised-button color="primary" (click)="inclusao()">Incluir</button>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Login</th>
+                    <th>Password</th>
+                    <th>Nome</th>
+                    <th>Função</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>{{usuario.id}}</td>
+                    <td>{{usuario.login}}</td>
+                    <td>{{usuario.password}}</td>
+                    <td>{{usuario.nome}}</td>
+                    <td>{{usuario.funcao}}</td>
+                    <td>
+                        <button (click)="atualizacao(usuario)" mat-raised-button color="primary">Atualizar</button>
+                        <button (click)="exclusao(usuario.id)" mat-raised-button color="warn">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

@@ -18,7 +18,7 @@ export class UsuarioService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(usuario): Observable<Usuario> {
+  create(usuario: Usuario): Observable<Usuario> {
     return this.httpClient.post<Usuario>(this.apiServer + '/usuario/', JSON.stringify(usuario), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -38,8 +38,8 @@ export class UsuarioService {
       )
   }
 
-  update(id, usuario): Observable<Usuario> {
-    return this.httpClient.put<Usuario>(this.apiServer + '/usuario/' + id, JSON.stringify(usuario), this.httpOptions)
+  update(usuario: Usuario): Observable<Usuario> {
+    return this.httpClient.put<Usuario>(this.apiServer + '/usuario/', JSON.stringify(usuario), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
