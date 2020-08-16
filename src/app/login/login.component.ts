@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    AppComponent.isLoggedIn = false
     this.form = this.fb.group({
       login: ['', Validators.required],
       password: ['', Validators.required]

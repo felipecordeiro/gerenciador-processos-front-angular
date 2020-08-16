@@ -2,6 +2,7 @@ import { Usuario } from './../../to/usuario';
 import { UsuarioService } from './../../providers/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrador',
@@ -16,7 +17,8 @@ export class AdministradorComponent implements OnInit {
   visaoAtualizar: boolean = false
   visaoVisualizar: boolean = false
 
-  constructor(private fb: FormBuilder,
+  constructor(private router: Router,
+    private fb: FormBuilder,
     private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
@@ -97,7 +99,10 @@ export class AdministradorComponent implements OnInit {
       this.form.reset()
       this.voltar()
     })
+  }
 
+  logout(){
+    this.router.navigate(['/login'])
   }
 
 
