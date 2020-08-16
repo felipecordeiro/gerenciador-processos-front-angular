@@ -1,0 +1,73 @@
+<div id="container">
+    <button (click)="logout()" mat-raised-button color="primary">Deslogar</button>
+    <h2>Visão de triador - Processos</h2>
+
+    <div *ngIf="view == 'incluir'">
+        <button (click)="voltar()" mat-raised-button color="primary">Voltar</button>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field>
+                <mat-label>ID</mat-label>
+                <input matInput type="text" formControlName="id">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Titulo</mat-label>
+                <input matInput type="text" formControlName="titulo">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Descrição</mat-label>
+                <textarea matInput type="text" formControlName="descricao"></textarea>
+            </mat-form-field>
+            <br>
+            <mat-label style="margin-bottom: 10px;">Incluir usuário para realizar paracer?</mat-label>
+            <br>
+            <mat-radio-group formControlName="pendenteParecer" (change)="incluirParecerChange()">
+                <mat-radio-button value="S" style="margin-right: 10px;">Sim</mat-radio-button>
+                <mat-radio-button value="N">Não</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <div *ngIf="form.get('pendenteParecer').value == 'S'">
+                <mat-form-field>
+                    <mat-label>Usuários</mat-label>
+                    <mat-select formControlName="usuarios" multiple (selectionChange)="usuarioChange($value)">
+                        <mat-option *ngFor="let usuario of usuariosFinalizador" [value]="usuario">{{usuario.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <br>
+            <button (click)="botaoSalvar()" [disabled]="form.invalid" mat-raised-button color="primary">
+                Salvar</button>
+        </form>
+    </div>
+
+    <div *ngIf="view == 'visualizar'">
+        <button mat-raised-button color="primary" (click)="inclusao()">Incluir</button>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Descrição</th>
+                    <th>Pendente de parecer</th>
+                    <th>Usuários</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let processo of processos">
+                    <td>{{processo.id}}</td>
+                    <td>{{processo.titulo}}</td>
+                    <td>{{processo.descricao}}</td>
+                    <td>{{processo.pendenteParecerString}}</td>
+                    <td>{{processo.nomeUsuarios}}</td>
+                    <td>
+                        <button (click)="atribuirUsuario(processo)" mat-raised-button color="accent">Atribuir usuário a
+                            realizar parecer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
