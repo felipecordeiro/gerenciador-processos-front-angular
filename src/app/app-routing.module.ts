@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ const routes: Routes = [
     },
     {
         path: 'administrador',
-        component: AdministradorComponent
+        component: AdministradorComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: '**',

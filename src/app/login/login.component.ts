@@ -6,6 +6,7 @@ import { Usuario } from './../../to/usuario';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   private login(usuario: Usuario) {
+    AppComponent.isLoggedIn = true
     if (usuario.funcao == Funcao.USUARIO_ADMINISTRADOR) {
       this.router.navigate(['/administrador'])
     }

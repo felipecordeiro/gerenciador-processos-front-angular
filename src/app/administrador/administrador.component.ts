@@ -94,6 +94,7 @@ export class AdministradorComponent implements OnInit {
       request = this.usuarioService.update(usuario)
     }
     request.subscribe(() => {
+      this.form.reset()
       this.voltar()
     })
 
