@@ -93,7 +93,7 @@ export class TriadorComponent implements OnInit {
     let processo: Processo = new Processo
     processo.titulo = this.form.get('titulo').value
     processo.descricao = this.form.get('descricao').value
-    processo.pendenteParecer = this.form.get('pendenteParecer').value == 'S' ? true : false
+    processo.pendenteParecer = true
     processo.usuarios = this.form.get('usuarios').value
     request = this.processoService.create(processo)
     

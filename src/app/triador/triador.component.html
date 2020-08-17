@@ -1,9 +1,13 @@
 <div id="container">
-    <button (click)="logout()" mat-raised-button color="primary">Deslogar</button>
+    <button (click)="logout()" mat-raised-button color="primary">Deslogar
+        <mat-icon>arrow_back</mat-icon>
+    </button>
     <h2>Visão de triador - Processos</h2>
 
     <div *ngIf="view == 'incluir'">
-        <button (click)="voltar()" mat-raised-button color="primary">Voltar</button>
+        <button (click)="voltar()" mat-raised-button color="primary">Voltar
+            <mat-icon>arrow_back</mat-icon>
+        </button>
         <form [formGroup]="form" novalidate>
             <mat-form-field>
                 <mat-label>ID</mat-label>
@@ -38,12 +42,16 @@
             </div>
             <br>
             <button (click)="botaoSalvar()" [disabled]="form.invalid" mat-raised-button color="primary">
-                Salvar</button>
+                Salvar
+                <mat-icon>save</mat-icon>
+            </button>
         </form>
     </div>
 
     <div *ngIf="view == 'visualizar'">
-        <button mat-raised-button color="primary" (click)="inclusao()">Incluir</button>
+        <button mat-raised-button color="primary" (click)="inclusao()">Incluir
+            <mat-icon>add</mat-icon>
+        </button>
         <br>
         <table>
             <thead>
