@@ -14,8 +14,6 @@ export class AdministradorComponent implements OnInit {
   usuarios: Usuario[] = []
   form: FormGroup
   view: 'incluir' | 'atualizar' | 'visualizar'
-  visaoAtualizar: boolean = false
-  visaoVisualizar: boolean = false
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -71,11 +69,11 @@ export class AdministradorComponent implements OnInit {
     }
     else {
       this.form = this.fb.group({
-        id: [''],
-        login: ['', Validators.required],
-        password: ['', Validators.required],
-        nome: ['', Validators.required],
-        funcao: ['', Validators.required]
+        id: [null],
+        login: [null, Validators.required],
+        password: [null, Validators.required],
+        nome: [null, Validators.required],
+        funcao: [null, Validators.required]
       })
     }
     this.form.get('id').disable()

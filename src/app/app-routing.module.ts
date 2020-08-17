@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TriadorComponent } from './triador/triador.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,11 @@ const routes: Routes = [
     {
         path: 'administrador',
         component: AdministradorComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'triador',
+        component: TriadorComponent,
         canActivate: [AuthGuard]
     },
     {

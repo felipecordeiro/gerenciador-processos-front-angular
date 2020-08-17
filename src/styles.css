@@ -10,3 +10,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 100%;
     flex-direction: column;
 }
+
+table {
+    background-color: cornsilk !important;
+}
+
+td,
+th {
+    border: 1px solid rgb(190, 190, 190) !important;
+    padding: 10px !important;
+}
+
+td {
+    text-align: center !important;
+}
