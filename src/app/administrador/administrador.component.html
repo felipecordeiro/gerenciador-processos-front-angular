@@ -1,9 +1,13 @@
 <div id="container">
-    <button (click)="logout()" mat-raised-button color="primary">Deslogar</button>
+    <button (click)="logout()" mat-raised-button color="primary">Deslogar
+        <mat-icon>arrow_back</mat-icon>
+    </button>
     <h2>Visão de administrador - Usuários</h2>
 
     <div *ngIf="view == 'incluir' || view == 'atualizar'">
-        <button (click)="voltar()" mat-raised-button color="primary">Voltar</button>
+        <button (click)="voltar()" matTooltip="Voltar" mat-raised-button color="primary">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
         <form [formGroup]="form" novalidate>
             <mat-form-field>
                 <mat-label>ID</mat-label>
@@ -34,13 +38,16 @@
                 </mat-select>
             </mat-form-field>
             <br>
-            <button (click)="botaoSalvar()" [disabled]="form.invalid" mat-raised-button color="primary">
-                Salvar</button>
+            <button (click)="botaoSalvar()" [disabled]="form.invalid" matTooltip="Salvar" mat-raised-button color="primary">
+                <mat-icon>save</mat-icon>
+            </button>
         </form>
     </div>
 
     <div *ngIf="view == 'visualizar'">
-        <button mat-raised-button color="primary" (click)="inclusao()">Incluir</button>
+        <button mat-raised-button matTooltip="Incluir" color="primary" (click)="inclusao()">
+            <mat-icon>add</mat-icon>
+        </button>
         <br>
         <table>
             <thead>
@@ -60,8 +67,12 @@
                     <td>{{usuario.nome}}</td>
                     <td>{{usuario.funcao}}</td>
                     <td>
-                        <button (click)="atualizacao(usuario)" mat-raised-button color="primary">Atualizar</button>
-                        <button (click)="exclusao(usuario.id)" mat-raised-button color="warn">Excluir</button>
+                        <button (click)="atualizacao(usuario)" matTooltip="Editar" mat-raised-button color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button (click)="exclusao(usuario.id)" matTooltip="Excluir" mat-raised-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>
