@@ -41,7 +41,8 @@
                 </mat-form-field>
             </div>
             <br>
-            <button (click)="botaoSalvar()" matTooltip="Salvar" [disabled]="form.invalid" mat-raised-button color="primary">
+            <button (click)="botaoSalvar()" matTooltip="Salvar" [disabled]="form.invalid" mat-raised-button
+                color="primary">
                 <mat-icon>save</mat-icon>
             </button>
         </form>
@@ -69,12 +70,32 @@
                     <td>{{processo.descricao}}</td>
                     <td>{{processo.pendenteParecerString}}</td>
                     <td>{{processo.nomeUsuarios}}</td>
-                    <td>
+                    <td *ngIf="processo.pendenteParecer">
                         <button (click)="atribuirUsuario(processo)" mat-raised-button color="accent">Atribuir usuário a
                             realizar parecer</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div *ngIf="view == 'atribuicao'">
+        <button (click)="voltar()" mat-raised-button matTooltip="Voltar" color="primary">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field>
+                <mat-label>Usuários</mat-label>
+                <mat-select #selectUsuario formControlName="usuarios" multiple (selectionChange)="usuarioChange(selectUsuario.value)">
+                    <mat-option *ngFor="let usuario of usuariosFinalizador" [value]="usuario">{{usuario.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <button (click)="botaoSalvarAtribuicao()" matTooltip="Salvar" mat-raised-button
+                color="primary">
+                <mat-icon>save</mat-icon>
+            </button>
+        </form>
     </div>
 </div>
