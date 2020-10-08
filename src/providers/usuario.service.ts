@@ -3,20 +3,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuarioService extends GenericService {
 
-  private apiServer = "http://localhost:8080";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  constructor(private httpClient: HttpClient) {
+    super()
   }
-
-  constructor(private httpClient: HttpClient) { }
 
   create(usuario: Usuario): Observable<Usuario> {
     return this.httpClient.post<Usuario>(this.apiServer + '/usuario/', JSON.stringify(usuario), this.httpOptions)
@@ -52,26 +48,14 @@ export class UsuarioService {
       )
   }
 
-  verificaUsuarioValido(login: string, password: string){
+  verificaUsuarioValido(login: string, password: string) {
     let usuario: Usuario = new Usuario
     usuario.login = login
     usuario.password = password
     return this.httpClient.post<Usuario>(this.apiServer + '/usuario/validation', JSON.stringify(usuario), this.httpOptions)
-    .pipe(
-      catchError(this.errorHandler)
-    )
+      .pipe(
+        catchError(this.errorHandler)
+      )
   }
 
-  errorHandler(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  }
 }

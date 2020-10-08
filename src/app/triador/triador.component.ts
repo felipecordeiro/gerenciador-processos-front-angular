@@ -27,7 +27,6 @@ export class TriadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.visualizacao()
-
   }
 
   private buscaUsuariosFinalizador() {
@@ -52,7 +51,6 @@ export class TriadorComponent implements OnInit {
   inclusao() {
     this.view = 'incluir'
     this.iniciarForm()
-
   }
 
   visualizacao() {

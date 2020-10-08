@@ -60,6 +60,7 @@
                     <th>Titulo</th>
                     <th>Descrição</th>
                     <th>Pendente de parecer</th>
+                    <th>Descrição do parecer</th>
                     <th>Usuários</th>
                 </tr>
             </thead>
@@ -69,6 +70,7 @@
                     <td>{{processo.titulo}}</td>
                     <td>{{processo.descricao}}</td>
                     <td>{{processo.pendenteParecerString}}</td>
+                    <td>{{processo.descricaoParecer}}</td>
                     <td>{{processo.nomeUsuarios}}</td>
                     <td *ngIf="processo.pendenteParecer">
                         <button (click)="atribuirUsuario(processo)" mat-raised-button color="accent">Atribuir usuário a

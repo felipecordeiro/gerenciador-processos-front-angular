@@ -1,3 +1,4 @@
+import { GenericService } from './generic.service';
 import { Processo } from './../to/processo';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,16 +8,11 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessoService {
+export class ProcessoService extends GenericService {
 
-  private apiServer = "http://localhost:8080";
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  constructor(private httpClient: HttpClient) {
+    super()
   }
-
-  constructor(private httpClient: HttpClient) { }
 
   create(processo: Processo): Observable<Processo> {
     return this.httpClient.post<Processo>(this.apiServer + '/processo/', JSON.stringify(processo), this.httpOptions)
@@ -24,6 +20,7 @@ export class ProcessoService {
         catchError(this.errorHandler)
       )
   }
+
   getById(id): Observable<Processo> {
     return this.httpClient.get<Processo>(this.apiServer + '/processo/' + id)
       .pipe(
@@ -52,16 +49,4 @@ export class ProcessoService {
       )
   }
 
-  errorHandler(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  }
 }
