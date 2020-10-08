@@ -1,3 +1,4 @@
+import { FinalizadorComponent } from './finalizador/finalizador.component';
 import { AuthGuard } from './auth.guard';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { LoginComponent } from './login/login.component';
@@ -24,6 +25,11 @@ const routes: Routes = [
     {
         path: 'triador',
         component: TriadorComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'finalizador',
+        component: FinalizadorComponent,
         canActivate: [AuthGuard]
     },
     {
