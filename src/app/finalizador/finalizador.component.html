@@ -11,6 +11,7 @@
                     <th>#</th>
                     <th>Titulo</th>
                     <th>Descrição</th>
+                    <th>Descrição do parecer</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,11 +19,29 @@
                     <td>{{processo.id}}</td>
                     <td>{{processo.titulo}}</td>
                     <td>{{processo.descricao}}</td>
+                    <td>{{processo.descricaoParecer}}</td>
                     <td>
-                        <button mat-raised-button color="accent">Incluir parecer sobre o processo</button>
+                        <button (click)="incluirParecer(processo)" mat-raised-button color="accent">Incluir parecer
+                            sobre o processo</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div *ngIf="view == 'incluir'">
+        <button (click)="voltar()" mat-raised-button matTooltip="Voltar" color="primary">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field>
+                <mat-label>Descrição do parecer</mat-label>
+                <textarea matInput type="text" formControlName="descricaoParecer"></textarea>
+            </mat-form-field>
+            <br>
+            <button (click)="botaoSalvarDescricaoParecer()" matTooltip="Salvar" mat-raised-button color="primary">
+                <mat-icon>save</mat-icon>
+            </button>
+        </form>
     </div>
 </div>
