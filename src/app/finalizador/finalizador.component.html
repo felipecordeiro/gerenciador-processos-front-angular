@@ -39,7 +39,7 @@
                 <textarea matInput type="text" formControlName="descricaoParecer"></textarea>
             </mat-form-field>
             <br>
-            <button (click)="botaoSalvarDescricaoParecer()" matTooltip="Salvar" mat-raised-button color="primary">
+            <button [disabled]="form?.invalid" (click)="botaoSalvarDescricaoParecer()" matTooltip="Salvar" mat-raised-button color="primary">
                 <mat-icon>save</mat-icon>
             </button>
         </form>
