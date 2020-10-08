@@ -1,3 +1,4 @@
+import { Utils } from './../../components/Utils/Utils';
 import { of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { Funcao } from './../../enums/enum-funcao';
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
 
   verificaUsuarioValidoObservable() {
     return this.usuarioService.verificaUsuarioValido(this.form.get('login').value,
-      this.form.get('password').value)
+      Utils.getSHA256(this.form.get('password').value))
   }
 
   private login(usuario: Usuario) {

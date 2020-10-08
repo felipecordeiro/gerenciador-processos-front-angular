@@ -6,6 +6,7 @@ export class Processo {
     descricao: string
     pendenteParecer: boolean
     pendenteParecerString: string
+    descricaoParecer: string
     usuarios: Usuario[]
     nomeUsuarios: string
 }

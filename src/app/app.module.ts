@@ -16,6 +16,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { TriadorComponent } from './triador/triador.component';
+import { FinalizadorComponent } from './finalizador/finalizador.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TriadorComponent } from './triador/triador.component';
     LoginComponent,
     PageNotFoundComponent,
     AdministradorComponent,
-    TriadorComponent
+    TriadorComponent,
+    FinalizadorComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,47 @@
+<div id="container">
+    <button (click)="logout()" mat-raised-button color="primary">Deslogar
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Visão de finalizador - Processos</h2>
+    <div *ngIf="view == 'visualizar'">
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titulo</th>
+                    <th>Descrição</th>
+                    <th>Descrição do parecer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let processo of processos">
+                    <td>{{processo.id}}</td>
+                    <td>{{processo.titulo}}</td>
+                    <td>{{processo.descricao}}</td>
+                    <td>{{processo.descricaoParecer}}</td>
+                    <td>
+                        <button (click)="incluirParecer(processo)" mat-raised-button color="accent">Incluir parecer
+                            sobre o processo</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="view == 'incluir'">
+        <button (click)="voltar()" mat-raised-button matTooltip="Voltar" color="primary">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <form [formGroup]="form" novalidate>
+            <mat-form-field>
+                <mat-label>Descrição do parecer</mat-label>
+                <textarea matInput type="text" formControlName="descricaoParecer"></textarea>
+            </mat-form-field>
+            <br>
+            <button [disabled]="form?.invalid" (click)="botaoSalvarDescricaoParecer()" matTooltip="Salvar" mat-raised-button color="primary">
+                <mat-icon>save</mat-icon>
+            </button>
+        </form>
+    </div>
+</div>

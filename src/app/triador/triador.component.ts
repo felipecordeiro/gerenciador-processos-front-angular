@@ -15,9 +15,10 @@ import { Funcao } from 'src/enums/enum-funcao';
 export class TriadorComponent implements OnInit {
 
   usuariosFinalizador: Usuario[] = []
+  atribuirProcesso: Processo
   processos: Processo[] = []
   form: FormGroup
-  view: 'incluir' | 'visualizar'
+  view: 'incluir' | 'visualizar' | 'atribuicao'
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -26,7 +27,6 @@ export class TriadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.visualizacao()
-
   }
 
   private buscaUsuariosFinalizador() {
@@ -35,12 +35,12 @@ export class TriadorComponent implements OnInit {
     })
   }
 
-  private buscaProcessos(){
+  private buscaProcessos() {
     this.processoService.getAll().subscribe((res: Processo[]) => {
       this.processos = res
       this.processos.forEach(obj => {
         obj.pendenteParecerString = obj.pendenteParecer ? 'Sim' : 'Não'
-        if (obj.usuarios && obj.usuarios.length > 0){
+        if (obj.usuarios && obj.usuarios.length > 0) {
           obj.nomeUsuarios = ''
           obj.nomeUsuarios += obj.usuarios.map(obj => obj.nome)
         }
@@ -51,7 +51,6 @@ export class TriadorComponent implements OnInit {
   inclusao() {
     this.view = 'incluir'
     this.iniciarForm()
-
   }
 
   visualizacao() {
@@ -63,28 +62,31 @@ export class TriadorComponent implements OnInit {
     this.visualizacao()
   }
 
-  incluirParecerChange(){
-    if (this.form.get('pendenteParecer').value == 'S'){
+  incluirParecerChange() {
+    if (this.form.get('pendenteParecer').value == 'S') {
       this.buscaUsuariosFinalizador()
       this.form.get('usuarios').setValidators(Validators.required)
-    }else {
+    } else {
       this.form.get('usuarios').setValidators(null)
     }
     this.form.get('usuarios').updateValueAndValidity()
   }
 
-  usuarioChange(valor){
+  usuarioChange(valor: Usuario[]) {
     console.log(valor)
+    if (this.view == 'atribuicao') {
+
+    }
   }
 
   private iniciarForm() {
-      this.form = this.fb.group({
-        id: [null],
-        titulo: [null, Validators.required],
-        descricao: [null, Validators.required],
-        pendenteParecer: [null, Validators.required],
-        usuarios: [null]
-      })
+    this.form = this.fb.group({
+      id: [null],
+      titulo: [null, Validators.required],
+      descricao: [null, Validators.required],
+      pendenteParecer: [null, Validators.required],
+      usuarios: [null]
+    })
     this.form.get('id').disable()
   }
 
@@ -96,14 +98,31 @@ export class TriadorComponent implements OnInit {
     processo.pendenteParecer = true
     processo.usuarios = this.form.get('usuarios').value
     request = this.processoService.create(processo)
-    
+
     request.subscribe(() => {
       this.form.reset()
       this.voltar()
     })
   }
 
-  logout(){
+  botaoSalvarAtribuicao(){
+    let request = null
+    this.atribuirProcesso.usuarios = this.form.get('usuarios').value
+    request = this.processoService.update(this.atribuirProcesso)
+    request.subscribe(() => {
+      this.form.reset()
+      this.voltar()
+    })
+  }
+
+  atribuirUsuario(processo: Processo) {
+    this.view = 'atribuicao'
+    this.atribuirProcesso = processo
+    this.buscaUsuariosFinalizador()
+
+  }
+
+  logout() {
     this.router.navigate(['/login'])
   }
 
